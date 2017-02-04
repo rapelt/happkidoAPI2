@@ -39,7 +39,11 @@ public class UserRepository {
     public User mapUserFromdDBObject(DBObject dbObject) throws IOException {
         Gson gson = new Gson();
 
-        return gson.fromJson(dbObject.toString(), User.class);
+        User user = gson.fromJson(dbObject.toString(), User.class);
+
+        user.setId(dbObject.get("_id").toString());
+
+        return user;
     }
 
     public List<User> findAllUsers() {
