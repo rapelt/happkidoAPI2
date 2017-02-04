@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE")
@@ -13,7 +14,7 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'gs-rest-service'
+    baseName = 'happkidoapi2'
     version =  '0.1.0'
 }
 
@@ -25,6 +26,19 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile("org.springframework.boot:spring-boot-starter-data-rest")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    compile("io.springfox:springfox-swagger2:2.1.1")
+    compile("io.springfox:springfox-swagger-ui:2.1.1")
+    compile 'com.google.code.gson:gson:2.2.4'
+}
+
+task run (type: JavaExec, dependsOn: classes){
+    if(project.hasProperty('myargs')){
+        args(myargs.split(','))
+    }
+    description = "Secure algorythm testing"
+    main = "happkidoAPI.Application"
+    classpath = sourceSets.main.runtimeClasspath
 }
