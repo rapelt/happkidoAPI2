@@ -6,11 +6,18 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import org.apache.log4j.Logger;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Properties;
+
 
 public class DataManager {
 
     private static final Logger log = Logger.getLogger(DataManager.class.getName());
 
+    InputStream input = null;
+
+    Properties prop = new Properties();
 
     private static DB happkidoDB;
 
@@ -27,39 +34,20 @@ public class DataManager {
         return INSTANCE;
     }
 
-    public static DataManager getInstance(String uri) {
-
-        uri = uri.substring(1, uri.length());
-
-        setDB(uri);
-
-        if (INSTANCE == null) {
-            INSTANCE = new DataManager(uri);
-        }
-
-        return INSTANCE;
-    }
-
     private DataManager() {
 
         try {
-            MongoClientURI uri = new MongoClientURI(textUri);
-
-            MongoClient mongoClient = new MongoClient(uri);
-
-            happkidoDB = mongoClient.getDB(uri.getDatabase());
-
-
-        } catch (Exception e) {
-            log.error("db connection error e=", e);
-        }
-
-    }
-
-    private DataManager(String textUri) {
-
-        try {
-            MongoClientURI uri = new MongoClientURI(textUri);
+            MongoClientURI uri;
+            try {
+                uri = new MongoClientURI(System.getenv("dburi"));
+                log.info("Connecting via DATABASE_URL environment variable");
+            } catch (NullPointerException ex) {
+                input = new FileInputStream("dburi.properties");
+                prop.load(input);
+                System.out.println(prop.getProperty("dburi"));
+                uri = new MongoClientURI(prop.getProperty("dburi"));
+                log.info("Connecting via localDatabaseUrl properties key/value ***");
+            }
 
             MongoClient mongoClient = new MongoClient(uri);
 

@@ -3,6 +3,8 @@
 .idea
 build/
 
+dburi.properties
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
