@@ -14,11 +14,13 @@ public class UserController {
     private final AtomicLong counter = new AtomicLong();
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8100/")
     public List<User> getUsers() {
         return UserRepository.getInstance().findAllUsers();
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @CrossOrigin(origins = "http://localhost:8100/")
     public User getUserById(@PathVariable String id) {
         return UserRepository.getInstance().findUserById(id);
     }

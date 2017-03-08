@@ -1,11 +1,8 @@
 package happkidoAPI.users;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import happkidoAPI.DataManager;
 import com.mongodb.*;
-import happkidoAPI.grade.Grade;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 
