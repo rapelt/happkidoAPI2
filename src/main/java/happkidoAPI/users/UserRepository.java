@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class UserRepository {
 
     private static final Logger log = Logger.getLogger(UserRepository.class.getName());
